@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Masoso Store - Premium Clothing</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: #f4f4f4;
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(135deg, #111 0%, #333 100%);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 5px;
+            letter-spacing: 2px;
+        }
+
+        header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            padding: 40px 20px;
+            justify-items: center;
+        }
+
+        .product {
+            background: white;
+            width: 100%;
+            max-width: 350px;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden;
+        }
+
+        .product:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 250px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #e0e0e0 0%, #f5f5f5 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            font-size: 3em;
+        }
+
+        .product h2 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            color: #111;
+        }
+
+        .product-description {
+            color: #666;
+            font-size: 0.95em;
+            margin-bottom: 15px;
+        }
+
+        .price {
+            color: #27ae60;
+            font-size: 1.8em;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+
+        .sizes-label {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .sizes {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .size-btn {
+            padding: 8px 12px;
+            border: 2px solid #ddd;
+            background: white;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .size-btn:hover {
+            border-color: #111;
+            background: #f9f9f9;
+        }
+
+        .size-btn.selected {
+            background: #111;
+            color: white;
+            border-color: #111;
+        }
+
+        .buy-btn {
+            width: 100%;
+            background: #27ae60;
+            color: white;
+            border: none;
+            padding: 14px 20px;
+            cursor: pointer;
+            border-radius: 6px;
+            font-size: 1.05em;
+            font-weight: bold;
+            transition: background 0.3s ease;
+        }
+
+        .buy-btn:hover {
+            background: #229954;
+        }
+
+        .buy-btn:active {
+            transform: scale(0.98);
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            background: #111;
+            color: white;
+            margin-top: 50px;
+        }
+
+        footer p {
+            margin: 5px 0;
+        }
+
+        .footer-links {
+            margin-top: 15px;
+        }
+
+        .footer-links a {
+            color: #27ae60;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        .cart-notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #27ae60;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 6px;
+            display: none;
+            z-index: 1000;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        .cart-notification.show {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+            }
+            to {
+                transform: translateX(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .products {
+                grid-template-columns: 1fr;
+                padding: 20px 10px;
+            }
+
+            header h1 {
+                font-size: 2em;
+            }
+
+            .product {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>MASOSO</h1>
+    <p>www.masoso.com - Premium Clothing Store</p>
+</header>
+
+<div class="container">
+    <section class="products">
+
+        <!-- Product 1: T-Shirt -->
+        <div class="product">
+            <div class="product-image">👕</div>
+            <h2>Masoso Premium T-Shirt</h2>
+            <p class="product-description">High-quality cotton t-shirt with modern design. Perfect for casual wear.</p>
+            <div class="price">$25.00</div>
+            
+            <div class="sizes-label">Select Size:</div>
+            <div class="sizes">
+                <button class="size-btn" onclick="selectSize(this)">S</button>
+                <button class="size-btn" onclick="selectSize(this)">M</button>
+                <button class="size-btn" onclick="selectSize(this)">L</button>
+                <button class="size-btn" onclick="selectSize(this)">XL</button>
+            </div>
+            
+            <button class="buy-btn" onclick="addToCart('Masoso Premium T-Shirt', '$25.00')">Buy Now</button>
+        </div>
+
+        <!-- Product 2: Hoodie -->
+        <div class="product">
+            <div class="product-image">🧥</div>
+            <h2>Masoso Classic Hoodie</h2>
+            <p class="product-description">Comfortable hoodie with premium fabric. Ideal for all seasons.</p>
+            <div class="price">$45.00</div>
+            
+            <div class="sizes-label">Select Size:</div>
+            <div class="sizes">
+                <button class="size-btn" onclick="selectSize(this)">S</button>
+                <button class="size-btn" onclick="selectSize(this)">M</button>
+                <button class="size-btn" onclick="selectSize(this)">L</button>
+                <button class="size-btn" onclick="selectSize(this)">XL</button>
+                <button class="size-btn" onclick="selectSize(this)">XXL</button>
+            </div>
+            
+            <button class="buy-btn" onclick="addToCart('Masoso Classic Hoodie', '$45.00')">Buy Now</button>
+        </div>
+
+    </section>
+</div>
+
+<footer>
+    <p>&copy; 2026 Masoso. All Rights Reserved.</p>
+    <p>Premium Quality Clothing | Worldwide Shipping</p>
+    <div class="footer-links">
+        <a href="#">About Us</a>
+        <a href="#">Contact</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms & Conditions</a>
+    </div>
+</footer>
+
+<div class="cart-notification" id="cartNotification"></div>
+
+<script>
+    function selectSize(button) {
+        // Remove selected class from siblings
+        const siblings = button.parentElement.querySelectorAll('.size-btn');
+        siblings.forEach(btn => btn.classList.remove('selected'));
+        
+        // Add selected class to clicked button
+        button.classList.add('selected');
+    }
+
+    function addToCart(productName, price) {
+        const selectedSize = event.target.parentElement.querySelector('.size-btn.selected');
+        
+        if (!selectedSize) {
+            showNotification('Please select a size!', 'error');
+            return;
+        }
+
+        const size = selectedSize.textContent;
+        showNotification(`✓ Added to cart: ${productName} (Size: ${size}, ${price})`);
+        
+        // Reset size selection
+        selectedSize.classList.remove('selected');
+    }
+
+    function showNotification(message, type = 'success') {
+        const notification = document.getElementById('cartNotification');
+        notification.textContent = message;
+        notification.style.background = type === 'error' ? '#e74c3c' : '#27ae60';
+        notification.classList.add('show');
+        
+        setTimeout(() => {
+            notification.classList.remove('show');
+        }, 3000);
+    }
+</script>
+
+</body>
+</html>
