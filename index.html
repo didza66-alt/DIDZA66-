@@ -104,7 +104,21 @@
             margin-bottom: 8px;
         }
 
+        .colors-label {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 8px;
+            margin-top: 15px;
+        }
+
         .sizes {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .colors {
             display: flex;
             gap: 8px;
             margin-bottom: 20px;
@@ -130,6 +144,25 @@
             background: #111;
             color: white;
             border-color: #111;
+        }
+
+        .color-btn {
+            width: 40px;
+            height: 40px;
+            border: 3px solid #ddd;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .color-btn:hover {
+            border-color: #111;
+            transform: scale(1.1);
+        }
+
+        .color-btn.selected {
+            border-color: #111;
+            box-shadow: 0 0 10px rgba(0,0,0,0.3);
         }
 
         .buy-btn {
@@ -269,6 +302,37 @@
             <button class="buy-btn" onclick="addToCart('Masoso Classic Hoodie', '$45.00')">Buy Now</button>
         </div>
 
+        <!-- Product 3: Belt -->
+        <div class="product">
+            <div class="product-image">⏫</div>
+            <h2>Masoso Premium Belt</h2>
+            <p class="product-description">Stylish leather belt perfect for any occasion. Available in multiple colors and sizes.</p>
+            <div class="price">$40.00</div>
+            
+            <div class="sizes-label">Select Size:</div>
+            <div class="sizes">
+                <button class="size-btn" onclick="selectSize(this)">S</button>
+                <button class="size-btn" onclick="selectSize(this)">M</button>
+                <button class="size-btn" onclick="selectSize(this)">L</button>
+                <button class="size-btn" onclick="selectSize(this)">XL</button>
+                <button class="size-btn" onclick="selectSize(this)">XXL</button>
+            </div>
+
+            <div class="colors-label">Select Color:</div>
+            <div class="colors">
+                <button class="color-btn" style="background-color: #000000;" onclick="selectColor(this)" title="Black"></button>
+                <button class="color-btn" style="background-color: #8B4513;" onclick="selectColor(this)" title="Brown"></button>
+                <button class="color-btn" style="background-color: #FFFFFF; border-color: #999;" onclick="selectColor(this)" title="White"></button>
+                <button class="color-btn" style="background-color: #FF0000;" onclick="selectColor(this)" title="Red"></button>
+                <button class="color-btn" style="background-color: #0000FF;" onclick="selectColor(this)" title="Blue"></button>
+                <button class="color-btn" style="background-color: #FFD700;" onclick="selectColor(this)" title="Gold"></button>
+                <button class="color-btn" style="background-color: #808080;" onclick="selectColor(this)" title="Gray"></button>
+                <button class="color-btn" style="background-color: #FFA500;" onclick="selectColor(this)" title="Orange"></button>
+            </div>
+            
+            <button class="buy-btn" onclick="addToCart('Masoso Premium Belt', '$40.00')">Buy Now</button>
+        </div>
+
     </section>
 </div>
 
@@ -295,19 +359,45 @@
         button.classList.add('selected');
     }
 
+    function selectColor(button) {
+        // Remove selected class from siblings
+        const siblings = button.parentElement.querySelectorAll('.color-btn');
+        siblings.forEach(btn => btn.classList.remove('selected'));
+        
+        // Add selected class to clicked button
+        button.classList.add('selected');
+    }
+
     function addToCart(productName, price) {
-        const selectedSize = event.target.parentElement.querySelector('.size-btn.selected');
+        const productCard = event.target.closest('.product');
+        const selectedSize = productCard.querySelector('.size-btn.selected');
+        const selectedColor = productCard.querySelector('.color-btn.selected');
         
         if (!selectedSize) {
             showNotification('Please select a size!', 'error');
             return;
         }
 
+        if (productName.includes('Belt') && !selectedColor) {
+            showNotification('Please select a color!', 'error');
+            return;
+        }
+
         const size = selectedSize.textContent;
-        showNotification(`✓ Added to cart: ${productName} (Size: ${size}, ${price})`);
+        let message = `✓ Added to cart: ${productName} (Size: ${size}, ${price})`;
         
-        // Reset size selection
+        if (selectedColor) {
+            const colorTitle = selectedColor.getAttribute('title');
+            message = `✓ Added to cart: ${productName} (Size: ${size}, Color: ${colorTitle}, ${price})`;
+        }
+
+        showNotification(message);
+        
+        // Reset selections
         selectedSize.classList.remove('selected');
+        if (selectedColor) {
+            selectedColor.classList.remove('selected');
+        }
     }
 
     function showNotification(message, type = 'success') {
